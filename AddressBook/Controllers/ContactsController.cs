@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AddressBook.Controllers
 {
@@ -16,36 +15,39 @@ namespace AddressBook.Controllers
             new Contact() { Id = 2, FirstName = "Paul", LastName = "Liv", PhoneNumber = "07164823571", Address = "2 Main Street",},
             new Contact() { Id = 3, FirstName = "Smith", LastName = "Hudson", PhoneNumber = "07496558217", Address = "3 Main Street",}
         };
-        // GET: api/<ContactsController>
         [HttpGet]
         public IActionResult AllContacts()
         {
             return Ok(contacts);
         }
 
-        // GET api/<ContactsController>/5
         [HttpGet("{id}")]
-        public string GetID(int id)
+        public IActionResult GetID(int id)
         {
-            return "value";
+            var contact = contacts.FirstOrDefault(contact => contact.Id == id);
+            if (contact == null)
+            {
+                return BadRequest("Contact is not found"); 
+            }
+            return Ok(contact);
         }
 
-        // POST api/<ContactsController>
         [HttpPost]
-        public void CreateContact([FromBody] string value)
+        public IActionResult CreateContact([FromBody] string value)
         {
+            return null;
         }
 
-        // PUT api/<ContactsController>/5
         [HttpPut("{id}")]
-        public void UpdateContact(int id, [FromBody] string value)
+        public IActionResult UpdateContact(int id, [FromBody] string value)
         {
+            return null; 
         }
 
-        // DELETE api/<ContactsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            return null; 
         }
     }
 }
