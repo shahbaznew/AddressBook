@@ -65,6 +65,49 @@ namespace AddressBook.Tests.Controllers
             Assert.Equal(newContact.PhoneNumber, createdContact.PhoneNumber);
             Assert.Equal(newContact.Address, createdContact.Address);
         }
+        [Fact]
+        public void UpdateContact_ShouldReturnOkResultWithUpdatedContact_WhenContactExists()
+        {
+        
+            var controller = new ContactsController();
+            var updateContact = new Contact
+            {
+                Id = 1, 
+                FirstName = "UpdatedName",
+                LastName = "UpdatedLastName",
+                PhoneNumber = "UpdatedNumber",
+                Address = "Updated Address"
+            };
+
+     
+            var result = controller.UpdateContact(updateContact);
+
+      
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var updatedContact = Assert.IsType<Contact>(okResult.Value);
+            Assert.Equal(updateContact.FirstName, updatedContact.FirstName);
+            Assert.Equal(updateContact.LastName, updatedContact.LastName);       
+            Assert.Equal(updateContact.PhoneNumber, updatedContact.PhoneNumber);
+            Assert.Equal(updateContact.Address, updatedContact.Address);
+        }
+
+        [Fact]
+        public void UpdateContact_ShouldReturnBadRequest_WhenContactDoesNotExist()
+        {
+            var controller = new ContactsController();
+            var updateContact = new Contact
+            {
+                Id = 999,
+                FirstName = "NonExistent",
+                LastName = "Contact",
+                PhoneNumber = "0000000000",
+                Address = "Nowhere"
+            };
+
+            var result = controller.UpdateContact(updateContact);
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal("Update Contact has failed", badRequestResult.Value);
+        }
     }
 
     

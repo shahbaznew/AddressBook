@@ -47,9 +47,20 @@ namespace AddressBook.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateContact(int id, [FromBody] string value)
+        public IActionResult UpdateContact([FromBody] Contact updateContact)
         {
-            return null; 
+            var contact = contacts.FirstOrDefault(contact => contact.Id == updateContact.Id);
+            if (contact == null)
+            {
+                return BadRequest("Update Contact has failed");
+            }
+
+            contact.FirstName = updateContact.FirstName;
+            contact.LastName = updateContact.LastName;
+            contact.PhoneNumber = updateContact.PhoneNumber;
+            contact.Address = updateContact.Address;
+
+            return Ok(contact);
         }
 
         [HttpDelete("{id}")]
