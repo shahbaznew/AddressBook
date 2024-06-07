@@ -33,9 +33,17 @@ namespace AddressBook.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateContact([FromBody] string value)
+        public IActionResult CreateContact([FromBody] Contact newContact)
         {
-            return null;
+            var contact = new Contact();
+            contact.Id = newContact.Id;
+            contact.FirstName = newContact.FirstName;
+            contact.LastName = newContact.LastName;
+            contact.PhoneNumber = newContact.PhoneNumber;
+            contact.Address = newContact.Address;
+            contacts.Add(contact);
+
+            return Ok(contact);
         }
 
         [HttpPut("{id}")]

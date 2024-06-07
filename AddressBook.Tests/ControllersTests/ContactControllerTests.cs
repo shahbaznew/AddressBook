@@ -22,14 +22,11 @@ namespace AddressBook.Tests.Controllers
         [Fact]
         public void GetID_ShouldReturnOkResultWithContact_WhenContactExists()
         {
-            // Arrange
             var controller = new ContactsController();
-            int contactId = 1; // ID of an existing contact
+            int contactId = 1; 
 
-            // Act
             var result = controller.GetID(contactId);
 
-            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             var contact = Assert.IsType<Contact>(okResult.Value);
             Assert.Equal(contactId, contact.Id);
@@ -38,16 +35,35 @@ namespace AddressBook.Tests.Controllers
         [Fact]
         public void GetID_ShouldReturnBadRequest_WhenContactDoesNotExist()
         {
-            // Arrange
             var controller = new ContactsController();
-            int nonExistentContactId = 999; // ID that does not exist
+            int nonExistentContactId = 999; 
 
-            // Act
             var result = controller.GetID(nonExistentContactId);
 
-            // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Contact is not found", badRequestResult.Value);
+        }
+        [Fact]
+        public void CreateContact_ShouldReturnOkResultWithNewContact()
+        {
+            var controller = new ContactsController();
+            var newContact = new Contact
+            {
+                FirstName = "Bob",
+                LastName = "Johnson",
+                PhoneNumber = "3213214321",
+                Address = "101 Maple St"
+            };
+
+            var result = controller.CreateContact(newContact);
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var createdContact = Assert.IsType<Contact>(okResult.Value);
+            Assert.Equal(newContact.Id, createdContact.Id);
+            Assert.Equal(newContact.FirstName, createdContact.FirstName);
+            Assert.Equal(newContact.LastName, createdContact.LastName);
+            Assert.Equal(newContact.PhoneNumber, createdContact.PhoneNumber);
+            Assert.Equal(newContact.Address, createdContact.Address);
         }
     }
 
