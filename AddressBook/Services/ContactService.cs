@@ -16,19 +16,14 @@ namespace AddressBook.Services
             return contacts;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetID(int id)
+        public Contact GetContactID(int id)
         {
             var contact = contacts.FirstOrDefault(contact => contact.Id == id);
-            if (contact == null)
-            {
-                return BadRequest("Contact is not found");
-            }
-            return Ok(contact);
+            
+            return contact;
         }
 
-        [HttpPost]
-        public IActionResult CreateContact([FromBody] Contact newContact)
+        public Contact CreateContact(Contact newContact)
         {
             var contact = new Contact();
             contact.Id = newContact.Id;
@@ -38,36 +33,34 @@ namespace AddressBook.Services
             contact.Address = newContact.Address;
             contacts.Add(contact);
 
-            return Ok(contact);
+            return contact;
         }
 
-        [HttpPut]
-        public IActionResult UpdateContact([FromBody] Contact updateContact)
+        public Contact UpdateContact(Contact updateContact)
         {
             var contact = contacts.FirstOrDefault(contact => contact.Id == updateContact.Id);
-            if (contact == null)
+            if (contact != null)
             {
-                return BadRequest("Update Contact has failed");
+                contact.FirstName = updateContact.FirstName;
+                contact.LastName = updateContact.LastName;
+                contact.PhoneNumber = updateContact.PhoneNumber;
+                contact.Address = updateContact.Address;
+
+                return contact;
             }
 
-            contact.FirstName = updateContact.FirstName;
-            contact.LastName = updateContact.LastName;
-            contact.PhoneNumber = updateContact.PhoneNumber;
-            contact.Address = updateContact.Address;
-
-            return Ok(contact);
+            return null;
         }
 
-        [HttpDelete]
-        public IActionResult DeleteContact(int id)
+        public Boolean DeleteContact(int id)
         {
             var contact = contacts.FirstOrDefault(contact => contact.Id == id);
             if (contact == null)
             {
-                return BadRequest("Contact has not been deleted");
+                return false;
             }
             contacts.Remove(contact);
-            return Ok("Contact has been deleted");
+            return true;
         }
     }
 }
