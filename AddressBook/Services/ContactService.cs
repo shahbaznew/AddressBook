@@ -1,13 +1,9 @@
 ﻿using AddressBook.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-
-namespace AddressBook.Controllers
+namespace AddressBook.Services
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class ContactsController : ControllerBase
+    public class ContactService
     {
         private static List<Contact> contacts = new List<Contact>()
         {
@@ -15,10 +11,9 @@ namespace AddressBook.Controllers
             new Contact() { Id = 2, FirstName = "Paul", LastName = "Liv", PhoneNumber = "07164823571", Address = "2 Main Street",},
             new Contact() { Id = 3, FirstName = "Smith", LastName = "Hudson", PhoneNumber = "07496558217", Address = "3 Main Street",}
         };
-        [HttpGet]
-        public IActionResult AllContacts()
+        public List<Contact> GetAllContacts()
         {
-            return Ok(contacts);
+            return contacts;
         }
 
         [HttpGet("{id}")]
@@ -27,7 +22,7 @@ namespace AddressBook.Controllers
             var contact = contacts.FirstOrDefault(contact => contact.Id == id);
             if (contact == null)
             {
-                return BadRequest("Contact is not found"); 
+                return BadRequest("Contact is not found");
             }
             return Ok(contact);
         }
@@ -71,7 +66,7 @@ namespace AddressBook.Controllers
             {
                 return BadRequest("Contact has not been deleted");
             }
-            contacts.Remove(contact); 
+            contacts.Remove(contact);
             return Ok("Contact has been deleted");
         }
     }

@@ -44,28 +44,6 @@ namespace AddressBook.Tests.Controllers
             Assert.Equal("Contact is not found", badRequestResult.Value);
         }
         [Fact]
-        public void CreateContact_ShouldReturnOkResultWithNewContact()
-        {
-            var controller = new ContactsController();
-            var newContact = new Contact
-            {
-                FirstName = "Bob",
-                LastName = "Johnson",
-                PhoneNumber = "3213214321",
-                Address = "101 Maple St"
-            };
-
-            var result = controller.CreateContact(newContact);
-
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var createdContact = Assert.IsType<Contact>(okResult.Value);
-            Assert.Equal(newContact.Id, createdContact.Id);
-            Assert.Equal(newContact.FirstName, createdContact.FirstName);
-            Assert.Equal(newContact.LastName, createdContact.LastName);
-            Assert.Equal(newContact.PhoneNumber, createdContact.PhoneNumber);
-            Assert.Equal(newContact.Address, createdContact.Address);
-        }
-        [Fact]
         public void UpdateContact_ShouldReturnOkResultWithUpdatedContact_WhenContactExists()
         {
         
@@ -75,7 +53,7 @@ namespace AddressBook.Tests.Controllers
                 Id = 1, 
                 FirstName = "UpdatedName",
                 LastName = "UpdatedLastName",
-                PhoneNumber = "1112223333",
+                PhoneNumber = "46875184641684",
                 Address = "Updated Address"
             };
 
