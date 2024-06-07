@@ -46,7 +46,7 @@ namespace AddressBook.Controllers
             return Ok(contact);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult UpdateContact([FromBody] Contact updateContact)
         {
             var contact = contacts.FirstOrDefault(contact => contact.Id == updateContact.Id);
@@ -64,9 +64,15 @@ namespace AddressBook.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteContact(int id)
         {
-            return null; 
+            var contact = contacts.FirstOrDefault(contact => contact.Id == id);
+            if (contact == null)
+            {
+                return BadRequest("Contact has not been deleted");
+            }
+            contacts.Remove(contact); 
+            return Ok("Contact has been deleted");
         }
     }
 }

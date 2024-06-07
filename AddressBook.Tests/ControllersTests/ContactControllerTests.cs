@@ -75,7 +75,7 @@ namespace AddressBook.Tests.Controllers
                 Id = 1, 
                 FirstName = "UpdatedName",
                 LastName = "UpdatedLastName",
-                PhoneNumber = "UpdatedNumber",
+                PhoneNumber = "1112223333",
                 Address = "Updated Address"
             };
 
@@ -108,7 +108,31 @@ namespace AddressBook.Tests.Controllers
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Update Contact has failed", badRequestResult.Value);
         }
+        [Fact]
+        public void DeleteContact_ShouldReturnOkResult_WhenContactExists()
+        {
+        
+            var controller = new ContactsController();
+            int contactId = 1; 
+
+            var result = controller.DeleteContact(contactId);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal("Contact has been deleted", okResult.Value);
+        }
+
+        [Fact]
+        public void DeleteContact_ShouldReturnBadRequest_WhenContactDoesNotExist()
+        {
+          
+            var controller = new ContactsController();
+            int nonExistentContactId = 999; 
+
+            var result = controller.DeleteContact(nonExistentContactId);
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal("Contact has not been deleted", badRequestResult.Value);
+        }
+
     }
 
-    
+
 }
