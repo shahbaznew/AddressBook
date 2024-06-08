@@ -85,6 +85,19 @@ namespace AddressBook.Tests.ServiceTests
             Assert.NotNull(result);
             Assert.Equal("Updated", result.FirstName);
         }
+        [Fact]
+        public void DeleteContact_ShouldRemoveContact()
+        {
+            WriteTestContactsToFile(GetTestContacts());
+            var service = new ContactService(_testFilePath);
+            var contactId = 1;
+
+            var result = service.DeleteContact(contactId);
+            var allContacts = service.GetAllContacts();
+            Assert.True(result);
+            Assert.Equal(3, allContacts.Count);
+            Assert.Null(service.GetContactID(contactId));
+        }
 
 
     }
