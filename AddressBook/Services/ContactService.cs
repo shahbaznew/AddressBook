@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using System.Xml;
 
 namespace AddressBook.Services
 {
@@ -23,9 +24,14 @@ namespace AddressBook.Services
             var jsonData = File.ReadAllText(_filePath);
             return JsonConvert.DeserializeObject<List<Contact>>(jsonData) ?? new List<Contact>();
         }
+        private void SaveContacts(List<Contact> contacts)
+        {
+            var jsonData = JsonConvert.SerializeObject(contacts, Formatting.Indented);
+            File.WriteAllText(_filePath, jsonData);
+        }
         public List<Contact> GetAllContacts()
         {
-            return contacts;
+            return LoadContacts();
         }
 
         public Contact GetContactID(int id)
