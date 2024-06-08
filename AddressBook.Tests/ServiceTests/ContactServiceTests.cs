@@ -74,6 +74,17 @@ namespace AddressBook.Tests.ServiceTests
             Assert.Equal("New", createdContact.FirstName);
 
         }
+        [Fact]
+        public void UpdateContact_ShouldModifyExistingContact()
+        {
+          
+            WriteTestContactsToFile(GetTestContacts());
+            var service = new ContactService(_testFilePath);
+            var updateContact = new Contact { Id = 1, FirstName = "Updated", LastName = "Name", PhoneNumber = "12312312345", Address = "Updated Address" };
+            var result = service.UpdateContact(updateContact);
+            Assert.NotNull(result);
+            Assert.Equal("Updated", result.FirstName);
+        }
 
 
     }
