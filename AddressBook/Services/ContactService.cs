@@ -1,5 +1,7 @@
 ﻿using AddressBook.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 
 namespace AddressBook.Services
 {
@@ -15,6 +17,11 @@ namespace AddressBook.Services
             {
                 File.WriteAllText(_filePath, "[]");
             }
+        }
+        private List<Contact> LoadContacts()
+        {
+            var jsonData = File.ReadAllText(_filePath);
+            return JsonConvert.DeserializeObject<List<Contact>>(jsonData) ?? new List<Contact>();
         }
         public List<Contact> GetAllContacts()
         {
