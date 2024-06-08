@@ -36,6 +36,7 @@ namespace AddressBook.Services
 
         public Contact GetContactID(int id)
         {
+            var contacts = LoadContacts(); 
             var contact = contacts.FirstOrDefault(contact => contact.Id == id);
 
             return contact;
