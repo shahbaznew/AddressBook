@@ -1,4 +1,5 @@
-﻿using AddressBook.Models;
+﻿using Newtonsoft.Json;
+using AddressBook.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
@@ -26,7 +27,7 @@ namespace AddressBook.Services
         }
         private void SaveContacts(List<Contact> contacts)
         {
-            var jsonData = JsonConvert.SerializeObject(contacts, Formatting.Indented);
+            var jsonData = JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(_filePath, jsonData);
         }
         public List<Contact> GetAllContacts()
