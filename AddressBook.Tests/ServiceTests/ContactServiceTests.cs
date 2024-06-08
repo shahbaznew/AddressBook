@@ -56,6 +56,20 @@ namespace AddressBook.Tests.ServiceTests
 
             CleanUp();
         }
+        [Fact]
+        public void GetContactByID_ShouldReturnCorrectContact()
+        {
+            WriteTestContactsToFile(GetTestContacts());
+            var service = new ContactService(_testFilePath);
+            var contactId = 1;
+
+            var result = service.GetContactID(contactId);
+            Assert.NotNull(result);
+            Assert.Equal(contactId, result.Id);
+            CleanUp();
+        }
+        [Fact]
+        public void 
 
     }
 }
