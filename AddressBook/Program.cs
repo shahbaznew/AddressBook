@@ -2,7 +2,7 @@ using AddressBook.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<IContactService, ContactService>();
+builder.Services.AddSingleton<IContactService, ContactService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

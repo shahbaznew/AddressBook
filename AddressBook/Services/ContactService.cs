@@ -53,6 +53,7 @@ namespace AddressBook.Services
 
         public Contact UpdateContact(Contact updateContact)
         {
+            var contacts = LoadContacts();
             var contact = contacts.FirstOrDefault(contact => contact.Id == updateContact.Id);
             if (contact != null)
             {
@@ -60,7 +61,7 @@ namespace AddressBook.Services
                 contact.LastName = updateContact.LastName;
                 contact.PhoneNumber = updateContact.PhoneNumber;
                 contact.Address = updateContact.Address;
-
+                SaveContacts(contacts);
                 return contact;
             }
 
@@ -69,13 +70,15 @@ namespace AddressBook.Services
 
         public Boolean DeleteContact(int id)
         {
+            var contacts = LoadContacts();
             var contact = contacts.FirstOrDefault(contact => contact.Id == id);
-            if (contact == null)
+            if (contact != null)
             {
-                return false;
+                contacts.Remove(contact);
+                SaveContacts(contacts);
+                return true;
             }
-            contacts.Remove(contact);
-            return true;
+            return false;
         }
     }
 }
