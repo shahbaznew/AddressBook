@@ -11,7 +11,7 @@ namespace AddressBook.Services
     {
         private readonly string _filePath;
 
-        public ContactService()
+        public ContactService(string _testFilePath)
         {
             _filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "contacts.json");
 
