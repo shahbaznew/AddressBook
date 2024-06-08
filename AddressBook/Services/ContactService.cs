@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AddressBook.Services
 {
-    public class ContactService
+    public class ContactService : IContactService
     {
         private static List<Contact> contacts = new List<Contact>()
         {
@@ -19,7 +19,7 @@ namespace AddressBook.Services
         public Contact GetContactID(int id)
         {
             var contact = contacts.FirstOrDefault(contact => contact.Id == id);
-            
+
             return contact;
         }
 

@@ -9,20 +9,25 @@ namespace AddressBook.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class ContactsController : ControllerBase
-    {
+    {   
+        private readonly IContactService _contactService;
+
+        public ContactsController(IContactService contactService) 
+        {
+            _contactService = contactService;
+        }
        
         [HttpGet]
         public IActionResult AllContacts()
         {
-            var service = new ContactService();
-            return Ok(service.GetAllContacts());
+           
+            return Ok(_contactService.GetAllContacts());
         }
 
         [HttpGet("{id}")]
         public IActionResult GetID(int id)
         {
-            var service = new ContactService();
-            var contact = service.GetContactID(id);
+            var contact = _contactService.GetContactID(id);
             if (contact == null)
             {
                 return BadRequest("Contact is not found"); 
@@ -33,9 +38,8 @@ namespace AddressBook.Controllers
         [HttpPost]
         public IActionResult CreateContact([FromBody] Contact newContact)
         {
-            var service = new ContactService();
 
-            var contact = service.CreateContact(newContact);
+            var contact = _contactService.CreateContact(newContact);
             if (contact == null)
             {
                 return BadRequest("Update Contact has failed");
@@ -47,8 +51,7 @@ namespace AddressBook.Controllers
         [HttpPut]
         public IActionResult UpdateContact([FromBody] Contact updateContact)
         {
-            var service = new ContactService();
-            var contact = service.UpdateContact(updateContact);
+            var contact = _contactService.UpdateContact(updateContact);
             if (contact == null)
             {
                 return BadRequest("Update Contact has failed");
@@ -59,8 +62,7 @@ namespace AddressBook.Controllers
         [HttpDelete]
         public IActionResult DeleteContact(int id)
         {
-            var service = new ContactService();
-            var result = service.DeleteContact(id);
+            var result = _contactService.DeleteContact(id);
             if (result == false)
             {
                 return BadRequest("Contact has not been deleted");
