@@ -44,15 +44,11 @@ namespace AddressBook.Services
 
         public Contact CreateContact(Contact newContact)
         {
-            var contact = new Contact();
-            contact.Id = newContact.Id;
-            contact.FirstName = newContact.FirstName;
-            contact.LastName = newContact.LastName;
-            contact.PhoneNumber = newContact.PhoneNumber;
-            contact.Address = newContact.Address;
-            contacts.Add(contact);
-
-            return contact;
+            var contacts = LoadContacts();
+            newContact.Id = contacts.Any() ? contacts.Max(c => c.Id) + 1 : 1;
+            contacts.Add(newContact);
+            SaveContacts(contacts);
+            return newContact;
         }
 
         public Contact UpdateContact(Contact updateContact)
