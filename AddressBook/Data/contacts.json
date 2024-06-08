@@ -1,23 +1,23 @@
-﻿[
+[
   {
     "Id": 1,
     "FirstName": "John",
     "LastName": "Doe",
-    "PhoneNumber": "1234567890",
-    "Address": "1 Main Street"
+    "Address": "1 Main Street",
+    "PhoneNumber": "1234567890"
   },
   {
     "Id": 2,
-    "FirstName": "Barry",
-    "LastName": "Long",
-    "PhoneNumber": "0987654321",
-    "Address": "2 Main Street"
+    "FirstName": "test",
+    "LastName": "string",
+    "Address": "string",
+    "PhoneNumber": "string"
   },
   {
     "Id": 3,
     "FirstName": "Alice",
     "LastName": "Smith",
-    "PhoneNumber": "9876543210",
-    "Address": "3 Main Street"
+    "Address": "3 Main Street",
+    "PhoneNumber": "9876543210"
   }
 ]
