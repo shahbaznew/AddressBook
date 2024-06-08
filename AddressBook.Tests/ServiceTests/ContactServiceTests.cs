@@ -61,6 +61,13 @@ namespace AddressBook.Tests.ServiceTests
        
         }
         [Fact]
+        public void GetContactByID_ShouldReturnNull_WhenContactDoesNotExist()
+        {
+            var service = new ContactService(_testFilePath);
+            var result = service.GetContactID(999); 
+            Assert.Null(result);
+        }
+        [Fact]
         public void CreateContact_ShouldAddNewContact()
         {
             WriteTestContactsToFile(GetTestContacts());
@@ -86,6 +93,14 @@ namespace AddressBook.Tests.ServiceTests
             Assert.Equal("Updated", result.FirstName);
         }
         [Fact]
+        public void UpdateContact_ShouldReturnNull_WhenContactDoesNotExist()
+        {
+            var service = new ContactService(_testFilePath);
+            var updateContact = new Contact { Id = 999, FirstName = "Non-Existing", LastName = "Contact", PhoneNumber = "0000000000", Address = "Does not exist" };
+            var result = service.UpdateContact(updateContact);
+            Assert.Null(result);
+        }
+        [Fact]
         public void DeleteContact_ShouldRemoveContact()
         {
             WriteTestContactsToFile(GetTestContacts());
@@ -98,7 +113,13 @@ namespace AddressBook.Tests.ServiceTests
             Assert.Equal(3, allContacts.Count);
             Assert.Null(service.GetContactID(contactId));
         }
-
+        [Fact]
+        public void DeleteContact_ShouldReturnFalse_WhenContactDoesNotExist()
+        {
+            var service = new ContactService(_testFilePath);
+            var result = service.DeleteContact(999); 
+            Assert.False(result);
+        }
 
     }
 }
