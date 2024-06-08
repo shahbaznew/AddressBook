@@ -8,10 +8,10 @@
   },
   {
     "Id": 2,
-    "FirstName": "test",
-    "LastName": "string",
-    "Address": "string",
-    "PhoneNumber": "string"
+    "FirstName": "Barry",
+    "LastName": "Long",
+    "Address": "2 Main Street",
+    "PhoneNumber": "0987654321"
   },
   {
     "Id": 3,

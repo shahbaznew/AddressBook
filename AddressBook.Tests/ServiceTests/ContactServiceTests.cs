@@ -25,23 +25,15 @@ namespace AddressBook.Tests.ServiceTests
         {
             return new List<Contact>
             {
-                 new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street" },
+                new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street" },
                 new Contact { Id = 2, FirstName = "Barry", LastName = "Long", PhoneNumber = "0987654321", Address = "2 Main Street" },
-                new Contact { Id = 2, FirstName = "Alice", LastName = "Smith", PhoneNumber = "9876543210", Address = "3 Main Street" }
+                new Contact { Id = 3, FirstName = "Alice", LastName = "Smith", PhoneNumber = "9876543210", Address = "3 Main Street" }
             };
         }
         private void WriteTestContactsToFile(List<Contact> contacts)
         {
             var jsonData = JsonConvert.SerializeObject(contacts, Formatting.Indented);
             File.WriteAllText(_testFilePath, jsonData);
-        }
-        private void CleanUp()
-        {
-            if (File.Exists(_testFilePath))
-            {
-                File.Delete(_testFilePath);
-            }
-            File.WriteAllText(_testFilePath, "[]");
         }
         [Fact]
         public void GetAllContacts_ShouldReturnAllContacts()
@@ -52,9 +44,9 @@ namespace AddressBook.Tests.ServiceTests
             var result = service.GetAllContacts();
 
             Assert.NotNull(result);
-            Assert.Equal(3, result.Count);
+            Assert.Equal(4, result.Count);
 
-            CleanUp();
+    
         }
         [Fact]
         public void GetContactByID_ShouldReturnCorrectContact()
@@ -66,10 +58,23 @@ namespace AddressBook.Tests.ServiceTests
             var result = service.GetContactID(contactId);
             Assert.NotNull(result);
             Assert.Equal(contactId, result.Id);
-            CleanUp();
+       
         }
         [Fact]
-        public void 
+        public void CreateContact_ShouldAddNewContact()
+        {
+            WriteTestContactsToFile(GetTestContacts());
+            var service = new ContactService(_testFilePath);
+            var newContact = new Contact { FirstName = "New", LastName = "Contact", PhoneNumber = "12312312345", Address = "4 Main Street" };
+
+            var createdContact = service.CreateContact(newContact);
+            var allContacts = service.GetAllContacts();
+            Assert.NotNull(createdContact);
+            Assert.Equal(4, allContacts.Count); 
+            Assert.Equal("New", createdContact.FirstName);
+
+        }
+
 
     }
 }

@@ -26,7 +26,7 @@ namespace AddressBook.Tests.Controllers
             {
                 new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street" },
                 new Contact { Id = 2, FirstName = "Barry", LastName = "Long", PhoneNumber = "0987654321", Address = "2 Main Street" },
-                new Contact { Id = 2, FirstName = "Alice", LastName = "Smith", PhoneNumber = "9876543210", Address = "3 Main Street" }
+                new Contact { Id = 3, FirstName = "Alice", LastName = "Smith", PhoneNumber = "9876543210", Address = "3 Main Street" }
             };
             _mockContactService.Setup(service => service.GetAllContacts()).Returns(contacts);
 
