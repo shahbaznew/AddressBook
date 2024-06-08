@@ -2,7 +2,11 @@ using AddressBook.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IContactService, ContactService>();
+builder.Services.AddSingleton<IContactService>(provider =>
+{
+    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "contacts.json");
+    return new ContactService(filePath);
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
