@@ -5,12 +5,17 @@ namespace AddressBook.Services
 {
     public class ContactService : IContactService
     {
-        private static List<Contact> contacts = new List<Contact>()
+        private readonly string _filePath;
+
+        public ContactService()
         {
-            new Contact() { Id = 1, FirstName = "Barry", LastName = "Long", PhoneNumber = "07986543154", Address = "1 Main Street",},
-            new Contact() { Id = 2, FirstName = "Paul", LastName = "Liv", PhoneNumber = "07164823571", Address = "2 Main Street",},
-            new Contact() { Id = 3, FirstName = "Smith", LastName = "Hudson", PhoneNumber = "07496558217", Address = "3 Main Street",}
-        };
+            _filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "contacts.json");
+
+            if (!File.Exists(_filePath))
+            {
+                File.WriteAllText(_filePath, "[]");
+            }
+        }
         public List<Contact> GetAllContacts()
         {
             return contacts;
