@@ -4,27 +4,31 @@
     "FirstName": "John",
     "LastName": "Doe",
     "Address": "1 Main Street",
-    "PhoneNumber": "1234567890"
+    "PhoneNumber": "1234567890",
+    "Email": "JohnDoe@gmail.com"
   },
   {
     "Id": 2,
     "FirstName": "Barry",
     "LastName": "Long",
     "Address": "2 Main Street",
-    "PhoneNumber": "0987654321"
+    "PhoneNumber": "0987654321",
+    "Email": "BarryLong@gmail.com"
   },
   {
     "Id": 3,
     "FirstName": "Alice",
     "LastName": "Smith",
     "Address": "3 Main Street",
-    "PhoneNumber": "9876543210"
+    "PhoneNumber": "9876543210",
+    "Email": "AliceSmith@gmail.com"
   },
   {
     "Id": 4,
     "FirstName": "testing",
     "LastName": "string",
     "Address": "string",
-    "PhoneNumber": "string"
+    "PhoneNumber": "string",
+    "Email": "Test@gmail.com"
   }
 ]

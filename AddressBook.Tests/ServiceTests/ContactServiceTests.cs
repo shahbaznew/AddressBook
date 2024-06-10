@@ -25,9 +25,9 @@ namespace AddressBook.Tests.ServiceTests
         {
             return new List<Contact>
             {
-                new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street" },
-                new Contact { Id = 2, FirstName = "Barry", LastName = "Long", PhoneNumber = "0987654321", Address = "2 Main Street" },
-                new Contact { Id = 3, FirstName = "Alice", LastName = "Smith", PhoneNumber = "9876543210", Address = "3 Main Street" }
+                new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street", Email = "JohnDoe@gmail.com"},
+                new Contact { Id = 2, FirstName = "Barry", LastName = "Long", PhoneNumber = "0987654321", Address = "2 Main Street", Email = "BarryLong@gmail.com"},
+                new Contact { Id = 3, FirstName = "Alice", LastName = "Smith", PhoneNumber = "9876543210", Address = "3 Main Street", Email = "AliceSmith@gmail.com"}
             };
         }
         private void WriteTestContactsToFile(List<Contact> contacts)
@@ -72,7 +72,7 @@ namespace AddressBook.Tests.ServiceTests
         {
             WriteTestContactsToFile(GetTestContacts());
             var service = new ContactService(_testFilePath);
-            var newContact = new Contact { FirstName = "New", LastName = "Contact", PhoneNumber = "12312312345", Address = "4 Main Street" };
+            var newContact = new Contact { FirstName = "New", LastName = "Contact", PhoneNumber = "12312312345", Address = "4 Main Street", Email = "newcontact@gmail.com"};
 
             var createdContact = service.CreateContact(newContact);
             var allContacts = service.GetAllContacts();
@@ -87,7 +87,7 @@ namespace AddressBook.Tests.ServiceTests
           
             WriteTestContactsToFile(GetTestContacts());
             var service = new ContactService(_testFilePath);
-            var updateContact = new Contact { Id = 1, FirstName = "Updated", LastName = "Name", PhoneNumber = "12312312345", Address = "Updated Address" };
+            var updateContact = new Contact { Id = 1, FirstName = "Updated", LastName = "Name", PhoneNumber = "12312312345", Address = "Updated Address", Email = "newcontact@gmail.com"};
             var result = service.UpdateContact(updateContact);
             Assert.NotNull(result);
             Assert.Equal("Updated", result.FirstName);
@@ -96,7 +96,7 @@ namespace AddressBook.Tests.ServiceTests
         public void UpdateContact_ShouldReturnNull_WhenContactDoesNotExist()
         {
             var service = new ContactService(_testFilePath);
-            var updateContact = new Contact { Id = 999, FirstName = "Non-Existing", LastName = "Contact", PhoneNumber = "0000000000", Address = "Does not exist" };
+            var updateContact = new Contact { Id = 999, FirstName = "Non-Existing", LastName = "Contact", PhoneNumber = "0000000000", Address = "Does not exist", Email = "nonexisting@gmail.com"};
             var result = service.UpdateContact(updateContact);
             Assert.Null(result);
         }

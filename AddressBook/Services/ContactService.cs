@@ -62,6 +62,7 @@ namespace AddressBook.Services
                 contact.LastName = updateContact.LastName;
                 contact.PhoneNumber = updateContact.PhoneNumber;
                 contact.Address = updateContact.Address;
+                contact.Email = updateContact.Email;    
                 SaveContacts(contacts);
                 return contact;
             }

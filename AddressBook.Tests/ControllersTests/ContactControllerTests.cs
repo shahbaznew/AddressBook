@@ -24,9 +24,9 @@ namespace AddressBook.Tests.Controllers
         {
             var contacts = new List<Contact>
             {
-                new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street" },
-                new Contact { Id = 2, FirstName = "Barry", LastName = "Long", PhoneNumber = "0987654321", Address = "2 Main Street" },
-                new Contact { Id = 3, FirstName = "Alice", LastName = "Smith", PhoneNumber = "9876543210", Address = "3 Main Street" }
+                new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street", Email = "JohnDoe@gmail.com"},
+                new Contact { Id = 2, FirstName = "Barry", LastName = "Long", PhoneNumber = "0987654321", Address = "2 Main Street", Email = "BarryLong@gmail.com" },
+                new Contact { Id = 3, FirstName = "Alice", LastName = "Smith", PhoneNumber = "9876543210", Address = "3 Main Street" , Email = "AliceSmith@gmail.com"}
             };
             _mockContactService.Setup(service => service.GetAllContacts()).Returns(contacts);
 
@@ -40,7 +40,7 @@ namespace AddressBook.Tests.Controllers
         [Fact]
         public void GetID_ShouldReturnOkResultWithContact_WhenContactExists()
         {
-            var contact = new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street" };
+            var contact = new Contact { Id = 1, FirstName = "John", LastName = "Doe", PhoneNumber = "1234567890", Address = "1 Main Street", Email = "JohnDoe@gmail.com"};
             _mockContactService.Setup(service => service.GetContactID(1)).Returns(contact);
 
             var result = _controller.GetID(1);
@@ -62,8 +62,8 @@ namespace AddressBook.Tests.Controllers
         [Fact]
         public void CreateContact_ShouldReturnOkResultWithNewContact()
         {
-            var newContact = new Contact { FirstName = "New", LastName = "Contact", PhoneNumber = "1231231234", Address = "123 Apple Street" };
-            var createdContact = new Contact { Id = 3, FirstName = "New", LastName = "Contact", PhoneNumber = "1231231234", Address = "123 Apple Street" };
+            var newContact = new Contact { FirstName = "New", LastName = "Contact", PhoneNumber = "1231231234", Address = "123 Apple Street", Email = "newcontact@gmail.com"};
+            var createdContact = new Contact { Id = 3, FirstName = "New", LastName = "Contact", PhoneNumber = "1231231234", Address = "123 Apple Street", Email = "newcontact@gmail.com"};
             _mockContactService.Setup(service => service.CreateContact(newContact)).Returns(createdContact);
 
             var result = _controller.CreateContact(newContact);
@@ -75,7 +75,7 @@ namespace AddressBook.Tests.Controllers
         [Fact]
         public void CreateContact_ShouldReturnBadRequest_WhenCreationFails()
         {
-            var newContact = new Contact { FirstName = "New", LastName = "Contact", PhoneNumber = "1231231234", Address = "123 Apple Street" };
+            var newContact = new Contact { FirstName = "New", LastName = "Contact", PhoneNumber = "1231231234", Address = "123 Apple Street", Email = "newcontact@gmail.com"};
             _mockContactService.Setup(service => service.CreateContact(newContact)).Returns((Contact)null);
 
             var result = _controller.CreateContact(newContact);
@@ -86,7 +86,7 @@ namespace AddressBook.Tests.Controllers
         [Fact]
         public void UpdateContact_ShouldReturnOkResultWithUpdatedContact_WhenContactExists()
         {
-            var updateContact = new Contact { Id = 1, FirstName = "Updated", LastName = "Name", PhoneNumber = "11122333457", Address = "Updated Address" };
+            var updateContact = new Contact { Id = 1, FirstName = "Updated", LastName = "Name", PhoneNumber = "11122333457", Address = "Updated Address", Email = "newcontact@gmail.com"};
             _mockContactService.Setup(service => service.UpdateContact(updateContact)).Returns(updateContact);
 
             var result = _controller.UpdateContact(updateContact);
@@ -98,7 +98,7 @@ namespace AddressBook.Tests.Controllers
         [Fact]
         public void UpdateContact_ShouldReturnBadRequest_WhenUpdateFails()
         {
-            var updateContact = new Contact { Id = 1, FirstName = "Updated", LastName = "Name", PhoneNumber = "11122333457", Address = "Updated Address" };
+            var updateContact = new Contact { Id = 1, FirstName = "Updated", LastName = "Name", PhoneNumber = "11122333457", Address = "Updated Address", Email = "newcontact@gmail.com" };
             _mockContactService.Setup(service => service.UpdateContact(updateContact)).Returns((Contact)null);
 
             var result = _controller.UpdateContact(updateContact);
